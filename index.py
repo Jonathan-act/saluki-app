@@ -27,7 +27,6 @@ app.secret_key = "mykeyfromsalukiapp"
 csrf = CSRFProtect(app)
 
 
-
 #LOG, LOGOUT----------------------------------------------------------------------------------------------------------------------------------
 @app.route('/')
 def inicio():
@@ -551,4 +550,4 @@ def not_found(error):
     
 #modo prueba.. dejar al final
 if __name__ == ('__main__'):
-    app.run(port = 5000)
+    app.run()
