@@ -1,3 +1,3 @@
-from app.index import app
-if __name__ == "__index__":
+from app.main import app
+if __name__ == "__main__":
   app.run()
