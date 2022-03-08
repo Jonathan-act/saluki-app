@@ -1,0 +1,36 @@
+{% extends "./veterinario/vet_template.html" %}
+
+{% block body %}
+            <div class="card p-3">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Dueño mascota</th>
+                            <th scope="col">Teléfono</th>
+                            <th scope="col">Mascota</th>
+                            <th scope="col">Especie</th>
+                            <th scope="col">Caracter</th>
+                            <th scope="col">Hora</th>
+                            <th scope="col">Fecha</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for hora in horas %}
+                        <tr>
+                            <td> {{ hora[4] }} </td>
+                            <td> {{ hora[5] }} </td>
+                            <td> {{ hora[6] }} </td>
+                            <td> {{ hora[8] }} </td>
+                            <td> {{ hora[9] }} </td>
+                            <td> {{ hora[3] }} </td>
+                            <td> {{ hora[2] }} </td>                    
+                        </tr>
+                        {% endfor %}                        
+                    </tbody>
+                </table>
+
+            </div>
+
+{% endblock %}

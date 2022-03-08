@@ -1,0 +1,56 @@
+{% extends "./veterinario/vet_template.html" %}
+
+{% block body %}
+
+            <h1 class="">Registrar cliente</h1>
+
+            <form class="p-auto" action="/registrar_usuario" method="POST">
+                
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                <div class="mb-3">
+                   <div class="mb-3">
+                        <label class="form-label">Correo electrónico</label>
+                        <input type="email" class="form-control w-75" name="email">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="name" class="form-control w-75" name="nombre" value="{{ nombre }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Apellido</label>
+                        <input type="text" class="form-control w-75" name="apellido" value="{{ apellido }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Ciudad</label>
+                        <select type="text" class="form-control w-75" name="ciudad">
+                            {% for ciudad in ciudades %}
+                            <option value="{{ ciudad[0] }}">{{ ciudad[1] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Teléfono</label>
+                        <div class="input-group w-75">
+                            <span class="input-group-text">+569</span>
+                            <input class="form-control w-75" type="text" maxlength="8" name="telefono" value="{{ teléfono }}"></input>
+                        </div>                        
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Contraseña</label>
+                        <input type="password" class="form-control w-75" name="pass" value="{{ pas }}">
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Registrar</button>
+                    </div>
+
+            </form>
+        </div>
+
+{% endblock %}

@@ -1,0 +1,148 @@
+{% extends "./usuario/usr_template.html" %}
+
+{% block body %}
+<div class="container col-9 mt-5">
+
+    <h1 class="">Resumen</h1>
+    
+    <form>
+    
+        <!-- Datos de la mascota -->
+        <div class="card mt-4">
+            <div class="card-header">
+                Dueño de la mascota
+            </div>
+            <div class="card-body row">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="col-xl-6">
+                    <p class="fw-bolder ">Nombre</p>
+                    <input type="text" class="form-control" value="{{ dueño[0] }} {{ dueño[1] }}" disabled>
+                </div>
+    
+                <div class="col-xl-6">
+                    <p class="fw-bolder">Teléfono</p>
+                    <input type="text" class="form-control" value="{{ dueño[2] }}" disabled>
+                    <!-- <p class="fw-bolder">Cantidad de mascotas</p>
+                                            <input type="text" class="form-control" disabled> -->
+                </div>
+    
+            </div>
+        </div>
+    
+        <!-- Información de la consulta -->
+        <div class="card mt-4">
+            <div class="card-header">
+                Información de la mascota
+            </div>
+            <div class="card-body row col-12">
+    
+                <!-- COL1 -->
+                <div class="col-xl-4">
+                    <div class="col-auto">
+                        <label for="inputPassword6" class="col-form-label">Nombre</label>
+                        <input class="form-control" value="{{ mascota[0] }}" disabled>
+                    </div>
+    
+                    <div class="col-auto">
+                        <label for="inputPassword6" class="col-form-label">Edad</label>
+                        <input class="form-control" value="{{ mascota[4] }}" disabled>
+                    </div>
+    
+                    <div class="col-auto">
+                        <label for="inputPassword6" class="col-form-label">Especie</label>
+                        <input class="form-control" value="{{ mascota[1] }}" disabled>
+                    </div>
+
+                </div>
+    
+                <!-- COL2 -->
+                <div class="col-xl-4">
+
+                    <div class="col-auto">
+                        <label for="inputPassword6" class="col-form-label">Raza</label>
+                        <input class="form-control" value="{{mascota[2]}}" disabled>
+                    </div>
+    
+                    <div class="col-auto">
+                        <label for="inputPassword6" class="col-form-label">Personalidad mascota</label>
+                        <input class="form-control" value=" {{ mascota[5] }}" disabled>
+                    </div>
+    
+                    <div class="col-auto">
+                        <label for="inputPassword6" class="col-form-label">Enfermedad crónica</label>
+                        <input class="form-control" disabled>
+                    </div>                        
+    
+                </div>
+    
+                <!-- COL3 -->
+                <div class="col-xl-4 text-center my-auto">
+                    <div id="qrcode">
+                        <img src="https://www.codigos-qr.com/qr/php/qr_img.php?d=/vet_registro_clinico/{{mascota[3]}}&s=8&e="/>
+                    </div>
+                </div>
+    
+            </div>
+    
+            <!-- VACUNAS -->
+            <div class="card-header">
+                Vacunas aplicadas
+            </div>
+            <div class="card-body">
+                <ul class="row">
+                    {% for vacuna in vacunas %}
+                    <li>{{ vacuna }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+    
+            <!--Operaciones-->
+            <div class="card-header">
+                Operaciones realizadas
+            </div>
+            <div class="card-body">
+                <ul>
+                    {% for operacion in operaciones %}
+                    <li>{{ operacion }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+    
+            <!--Operaciones-->
+            <div class="card-header">
+                Enfermedades
+            </div>
+            <div class="card-body">
+                <ul>
+                    {% for enfermedad in enfermedades %}
+                    <li>{{ enfermedad }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+    
+            <!--Tratamientos-->
+            <div class="card-header">
+                Alergias
+            </div>
+            <div class="card-body">
+                <ul>
+                    {% for alergia in alergias %}
+                    <li>{{ alergia }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+    
+        </div>
+        <a href="/usr_registro_clinico/{{mascota[3]}}" class="btn btn-primary mt-3 mb-4">
+            Agregar registro clínico
+        </a>
+    
+    </form>
+    
+    </div>
+    
+    </div>
+
+</div>
+
+{% endblock %}

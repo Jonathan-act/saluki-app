@@ -1,0 +1,72 @@
+{% extends "./usuario/usr_template.html" %}
+
+{% block body %}
+
+        <!-- Componente principal -->
+    <div class="container col-9 mt-5 row">
+
+        <div class="col-12">
+            <h1 class="">Agendar hora veterinaria</h1>
+        </div>
+
+        <div class="col-xl-5 mt-4">
+            
+            <form class="container" action="/hrs_disponibles" method="post">
+
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                <label class="mt-2 mb-2">Veterinario/a</label>
+                
+                <select class="form-control" name="veterinario">
+                    {% for veterinario in veterinarios %}
+                    <option value="{{ veterinario[3] }}" name=""> {{ veterinario[2] }} - {{ veterinario[0] }} {{ veterinario[1] }}</option>
+                    {% endfor %}
+                </select>
+
+                <label>Fecha</label>
+                <input type="date" class="form-control" name="fecha" required>
+
+                <label class="mt-2">Hora</label>
+                <select name="hora" type="time" class="form-select">
+                    <option value="09:00:00" type="time">09:00</option>
+                    <option value="09:30:00" type="time">09:30</option>
+                    <option value="10:00:00" type="time">10:00</option>
+                    <option value="10:30:00" type="time">10:30</option>
+                    <option value="11:00:00" type="time">11:00</option>
+                    <option value="11:30:00" type="time">11:30</option>
+                    <option value="12:00:00" type="time">12:00</option>
+                    <option value="12:30:00" type="time">12:30</option>
+                    <option value="13:00:00" type="time">13:00</option>
+                    <option value="13:30:00" type="time">13:30</option>
+                    <option value="15:00:00" type="time">15:00</option>
+                    <option value="15:30:00" type="time">15:30</option>
+                    <option value="16:00:00" type="time">16:00</option>
+                    <option value="16:30:00" type="time">16:30</option>
+                    <option value="17:00:00" type="time">17:00</option>
+                    <option value="17:30:00" type="time">17:30</option>
+                </select>
+                
+                <label class="mt-2">Dueño mascota</label>
+                <input type="text" class="form-control" name="dueno" value="{{ dueno }}" required>
+                
+                <label class="mt-2">Teléfono</label>
+                <input type="tel" class="form-control" name="telefono" value="{{ telefono }}" required>
+                
+                <label class="mt-2">Nombre mascota</label>
+                <input type="text" class="form-control" name="mascota" value="{{ mascota }}" required>
+
+                <label class="mt-2">Caracter mascota</label>
+                <input type="text" class="form-control" name="caracter" value="{{ caracter }}" required>
+                
+                <div>
+                    <button class="btn btn-success mt-3">Agendar</button>
+                </div>
+
+
+            </form>            
+
+        </div>
+
+    </div>
+
+{% endblock %}

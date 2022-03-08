@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="shortcut icon" href="./../static/img/logo.png" type="image/x-icon">
+    <title>Saluki</title>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-light bg-success">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1 text-light">Saluki</span>
+        </div>
+    </nav>
+
+    <div class="row col-xl-12 col-xs-12 m-auto">
+        <section class="col-xl-7 col-xs-10 m-5 p-4">
+
+            <div class="mt-5 mb-5">
+                <img class="mx-auto my-1 float-center" src="./../static/img/logo.png" alt="Medicina Veterinaria" width="150"
+                    height="150">
+            </div>
+
+            <h1 class="mb-4 fw-bold">Bienvenido a Saluki!</h1>
+            <h4 class="mb-2">Ficha clínica digital para tu mascota</h4>
+
+            <p class="fw-light ">
+                Saluki es una plataforma digital para veterinarios y clientes en donde
+                se alojara la ficha digital de su mascota para que siempre tengas acceso a la 
+                información clínica de forma facil, rápida y desde cualquier lugar con acceso a internet.
+            </p>
+
+        </section>
+
+        <section class="col-xl-4 p-4 mt-4">
+            <div class="card p-3 mx-auto align-middle">
+                <form class="container text-center" method="POST" action="/log">
+
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                    <h5>Veterinario</h5>
+                    <p class="float-start">Correo electrónico</p>
+                    <input type="email" class="form-control" name="email">
+
+                    <p class="float-start mt-1">Contraseña</p>
+                    <input type="password" class="form-control" name="pass" required>
+
+                    <button class="btn btn-success w-50 mt-2 mx-auto" type="submit">Ingresar</button>
+                </form>
+            </div>
+
+            <div class="card p-3 mx-auto mt-2 align-middle">
+                <form class="container text-center" method="POST" action="/log_usr">                    
+                    <h5>Dueño de mascota</h5>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <p class="float-start">Correo electrónico</p>
+                    <input type="email" class="form-control" name="email_usr">
+
+                    <p class="float-start mt-1">Contraseña</p>
+                    <input type="password" class="form-control" name="pass_usr" required>
+
+                    <button class="btn btn-success w-50 mt-2 mx-auto" type="submit">Ingresar</button>
+                </form>
+            </div>
+
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-danger text-center fixed-bottom w-75 mx-auto">
+                        <strong>{{ message }}</strong>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                    
+        </section>
+    </div>
+
+        <div class="fixed-bottom" style="height: 142px; overflow: hidden;"><svg viewBox="0 0 500 150" preserveAspectRatio="none"
+        style="height: 100%; width: 100%;">
+        <path d="M0.00,49.99 C107.44,203.77 286.34,132.73 534.09,104.10 L500.00,150.00 L-33.63,178.13 Z"
+            style="stroke: none; fill: rgb(46, 116, 43);"></path>
+    </svg></div>
+
+    
+    
+</body>
+
+
+
+</html>

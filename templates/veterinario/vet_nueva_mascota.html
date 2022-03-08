@@ -1,0 +1,61 @@
+{% extends "./veterinario/vet_template.html" %}
+
+{% block body %}
+        
+            <h1 class="">Registrar mascota</h1>
+        
+            <form class="p-auto" action="/registrar_mascota" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                <div class="mb-3 mt-4">
+                    <label class="form-label">Identificación única</label>
+                    <input type="number" class="form-control w-75" name="id_mascota" required>
+                    <label class="form-text">Identificación única del animal, puede ser número de chip o RUN de su dueño más un
+                        número.</label>
+                </div>
+        
+                <div class="mb-3">
+                    <label class="form-label">Correo electrónico dueño</label>
+                    
+                    <input type="email" class="form-control w-75" name="correo_usuario" value="{{ correo }}" required>
+                    
+                    <label class="form-text">Con este correo se vinculara la mascota a su dueño.</label>
+                </div>              
+
+                <div class="mb-3">
+                    <label class="form-label">Nombre mascota</label>
+                    <input type="text" class="form-control w-75" name="nombre_mascota" value="{{ nombre }}" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Raza mascota</label>
+                    <input type="text" class="form-control w-75" name="raza_mascota" value="{{ raza }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Caracter mascota</label>
+                    <input type="text" class="form-control w-75" name="caracter_mascota" value="{{ caracter }}" required>
+                </div>
+        
+                <div class="mb-3">
+                    <label class="form-label">Fecha de nacimiento mascota</label>
+                    <input type="date" class="form-control w-75" name="fecha_nacimiento" value="{{ fecha }}">
+                </div>
+        
+                <div class="mb-3">
+                    <label class="form-label">Especie mascota</label>
+                    <select name="especie_mascota" class="form-control w-75" required>
+                        {% for especie in especies %}
+                        <option value="{{ especie[0] }}">{{ especie[0] }} </option>
+                        {% endfor %}
+                    </select>
+                </div>
+        
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Registrar</button>
+                </div>
+                
+            </form>
+        </div>
+
+{% endblock %}

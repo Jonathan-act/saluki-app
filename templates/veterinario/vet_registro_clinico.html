@@ -1,0 +1,79 @@
+{% extends "./veterinario/vet_template.html" %}
+
+{% block body %}
+
+            <h1 class="">Registro clínico</h1>
+
+            <form action="/agregar_registro" method="POST">
+
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                <!-- Datos de la mascota -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        Información de la mascota
+                    </div>
+                    <div class="card-body row">
+
+                        <div class="col-6">
+                            <p class="fw-bolder ">Nombre</p>
+                            <input type="text" class="form-control" value="{{ info[0] }}" disabled>
+                            <p class="fw-bolder">Edad</p>
+                            <input type="text" class="form-control" value="{{ info[1] }} años" disabled>
+                        </div>
+
+                        <div class="col-6">
+                            <p class="fw-bolder">Caracter</p>
+                            <input type="text" class="form-control" value="{{ info[3] }}" disabled>
+                            <p class="fw-bolder">Id</p>
+                            <input type="text" class="form-control" value="{{info[2]}}" disabled>
+                            <input type="hidden" value="{{info[2]}}" name="id_mascota">
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Información de la consulta -->
+                <div class="card mt-4">
+                        <div class="card-header">
+                            Nuevos antecedentes                    
+                        </div>
+                        <div class="card-body row">
+
+                        <div class="col-6">
+                            <p class="fw-bolder ">Alergia</p>
+                            <input type="text" class="form-control" name="alergia">
+                            <p class="fw-bolder">Vacuna</p>
+                            <input type="text" class="form-control" name="vacuna">
+                            <p class="fw-bolder ">Operación</p>
+                            <input type="text" class="form-control" name="operacion">
+                            
+                        </div>
+                
+                        <div class="col-6">
+                            <p class="fw-bolder">Tratamiento</p>
+                            <input type="text" class="form-control" name="tratamiento">
+                            <p class="fw-bolder">Enfermedad</p>
+                            <input type="text" class="form-control" name="enfermedad">
+                        </div>
+                
+                    </div>
+                </div>
+
+
+                <!-- Comentarios adicionales -->
+                <div class="form-floating mt-3">
+                    <textarea class="form-control" placeholder="Información adicional o que no pudo ser ingresada en el formulario anterior" id="floatingTextarea2"
+                        style="height: 100px" name="comentario"></textarea>
+                    <label for="floatingTextarea2">Comentarios adicionales</label>
+                </div>
+
+                <a href="/vet_resumen/{{info[2]}}" class="btn btn-secondary mt-3 mb-4">Volver</a>
+
+                <button type="submit" class="btn btn-primary mt-3 mb-4">Agregar registro</button>
+
+            </form>
+
+        </div>
+
+{% endblock %}
