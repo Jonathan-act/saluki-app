@@ -548,6 +548,3 @@ def hrs_disponibles():
 def not_found(error):
     return render_template('not_found.html')
     
-#modo prueba.. dejar al final
-if __name__ == ('__main__'):
-    app.run()
