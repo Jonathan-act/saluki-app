@@ -376,11 +376,11 @@ def registrar_usuario():
         ciudad_usuario = request.form['ciudad']
         contraseña_usuario = request.form['pass']
     cursor.execute(
-        " select 1 from usuario where correo_usuario = '{0}' ".format(
+        " select true from usuario where correo_usuario = '{0}' ".format(
             correo_usuario)
     )
     usuario = cursor.fetchall()
-    if usuario == [(1,)]:
+    if usuario == [(True,)]:
         message = "Este correo electronico esta en uso, por favor ingrese otro."
         flash(message)
         cursor.execute("select id_ciudad, nombre_ciudad from ciudad")
