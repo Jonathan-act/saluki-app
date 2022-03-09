@@ -112,7 +112,7 @@ def vet_agenda():
     )
     horas = cursor.fetchall()
     cursor.execute(
-        " select nombre_agenda, nombre_mascota, hora_agenda from agenda where correo_veterinario='{0}' and fecha_agenda = current_date limit 1 ".format(
+        " select nombre_agenda, nombre_mascota, hora_agenda from agenda where correo_veterinario='{0}' and fecha_agenda = current_date and hora_agenda > current_time limit 1 ".format(
             correo_veterinario)
     )
     p_paciente = cursor.fetchall()
@@ -163,7 +163,7 @@ def vet_resumen(id):
             enfermedades.append(info[7])
 
     cursor.execute(
-        " select nombre_agenda, nombre_mascota, hora_agenda from agenda where correo_veterinario='{0}' and fecha_agenda = current_date limit 1 ".format(
+        " select nombre_agenda, nombre_mascota, hora_agenda from agenda where correo_veterinario='{0}' and fecha_agenda = current_date and hora_agenda > current_time limit 1 ".format(
             correo_veterinario)
     )
     p_paciente = cursor.fetchall()
@@ -180,7 +180,7 @@ def vet_registrar_usuario():
     cursor.execute("select id_ciudad, nombre_ciudad from ciudad")
     ciudades = cursor.fetchall()
     cursor.execute(
-        " select nombre_agenda, nombre_mascota, hora_agenda from agenda where correo_veterinario='{0}' and fecha_agenda = current_date limit 1 ".format(
+        " select nombre_agenda, nombre_mascota, hora_agenda from agenda where correo_veterinario='{0}' and fecha_agenda = current_date and hora_agenda > current_time limit 1 ".format(
             correo_veterinario)
     )
     p_paciente = cursor.fetchall()
@@ -202,7 +202,7 @@ def registro_clinico(id):
 
     #prox paciente
     cursor.execute(
-        " select nombre_agenda, nombre_mascota, hora_agenda from agenda where correo_veterinario='{0}' and fecha_agenda = current_date limit 1 ".format(
+        " select nombre_agenda, nombre_mascota, hora_agenda from agenda where correo_veterinario='{0}' and fecha_agenda = current_date and hora_agenda > current_time limit 1 ".format(
             correo_veterinario)
     )
     p_paciente = cursor.fetchall()
@@ -221,7 +221,7 @@ def registro_mascota():
     )
     especies = cursor.fetchall()
     cursor.execute(
-        " select nombre_agenda, nombre_mascota, hora_agenda from agenda where correo_veterinario='{0}' and fecha_agenda = current_date limit 1 ".format(
+        " select nombre_agenda, nombre_mascota, hora_agenda from agenda where correo_veterinario='{0}' and fecha_agenda = current_date and hora_agenda > current_time limit 1 ".format(
             correo_veterinario)
     )
     p_paciente = cursor.fetchall()
