@@ -51,11 +51,11 @@ def log():
                 print(user[3])
                 return redirect(url_for('vet_agenda'))
             else:
-                message = "Credenciales incorrecta o usuario no registrado"
+                message = "Credenciales incorrectas o usuario no registrado"
                 flash(message)
                 return redirect('/')
         else:
-            message = "Credenciales incorrecta o usuario no registrado"
+            message = "Credenciales incorrectas o usuario no registrado"
             flash(message)
             return redirect('/')
 
@@ -157,10 +157,10 @@ def vet_resumen(id):
             vacunas.append(info[5])
         if info[4] != '':
             operaciones.append(info[4])
-        if info[7] != '':
-            alergias.append(info[7])
         if info[6] != '':
-            enfermedades.append(info[6])
+            alergias.append(info[6])
+        if info[7] != '':
+            enfermedades.append(info[7])
 
     cursor.execute(
         " select nombre_agenda, nombre_mascota, hora_agenda from agenda where correo_veterinario='{0}' and fecha_agenda = current_date limit 1 ".format(
@@ -543,6 +543,10 @@ def hrs_disponibles():
         message = "Listo! tu hora  esta agendada."
         flash(message)
     return redirect('/agendar_hora')
+
+@app.route('/info')
+def info():
+    return render_template('info.html')
 
 @app.errorhandler(404)
 def not_found(error):
