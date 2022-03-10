@@ -37,6 +37,7 @@ def log():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['pass']
+        email = email.lower()
         cursor.execute(
             "select v.correo_veterinario, v.nombre_veterinario, v.apellido_veterinario, e.nombre_especialidad from veterinario v, especialidad e where v.correo_veterinario= %s and v.contrasena_veterinario=%s and v.id_especialidad=e.id_especialidad", (email, password)
         )
@@ -64,6 +65,7 @@ def log_usr():
     if request.method == 'POST':
         email = request.form['email_usr']
         password = request.form['pass_usr']
+        email = email.lower()
         cursor.execute(
             "select correo_usuario, nombre_usuario, apellido_usuario from usuario where correo_usuario= %s and contrasena_usuario=%s", (
                 email, password)
@@ -375,6 +377,7 @@ def registrar_usuario():
         telefono_usuario = request.form['telefono']
         ciudad_usuario = request.form['ciudad']
         contraseña_usuario = request.form['pass']
+    correo_usuario = correo_usuario.lower()
     cursor.execute(
         " select true from usuario where correo_usuario = '{0}' ".format(
             correo_usuario)
@@ -404,6 +407,7 @@ def registrar_mascota_vet():
         fecha_nacimiento = request.form['fecha_nacimiento']
         especie_mascota = request.form['especie_mascota']
         raza_mascota = request.form['raza_mascota']
+    correo_usuario = correo_usuario.lower()
     cursor.execute(
         " select 1 from mascota where id_mascota = {0} ".format(id_mascota)
     )
@@ -434,6 +438,7 @@ def registrar_mascota_usr():
         fecha_nacimiento = request.form['fecha_nacimiento']
         especie_mascota = request.form['especie_mascota']
         raza_mascota = request.form['raza_mascota']
+    correo_usuario = correo_usuario.lower()
     cursor.execute(
         " select 1 from mascota where id_mascota = {0} ".format(id_mascota)
     )
