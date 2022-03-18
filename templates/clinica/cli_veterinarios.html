@@ -1,0 +1,68 @@
+{% extends "./clinica/cli_template.html" %}
+
+{% block body %}
+
+<section>
+    <div class="d-flex">
+        <h1 class="mb-1 w-75">Veterinarios registrados</h1>
+        <a href="/cli_registrar_vet" class="m-1 h-100 w-25">
+            <button class="btn btn-success">Agregar Veterinario</button>
+        </a>        
+    </div>
+    <hr>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Veterinario</th>
+                <th scope="col">Especialidad</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Consultas mensuales</th>
+                <th scope="col">Consultas semanales</th>
+                <th scope="col">Consultas totales</th>
+                <th scope="col">Actualizar</th>
+                <th scope="col">Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for veterinario in veterinarios %}
+            <tr>
+                <form action="/actualizar_vet" method="POST">
+                    <th>
+                        <input class="form-control" type="text" name="nombre" value="{{ veterinario[3] }} {{ veterinario[4] }}" disabled>
+                    </th>
+                    <th>
+                        <select class="form-select">
+                            <option value="{{veterinario[1]}}" name="especialidad">{{ veterinario[1] }}</option>
+                            {% for especialidad in especialidades %}
+                            <option value="{{especialidad[0]}}" >{{ especialidad[1] }}</option>
+                            {% endfor %}
+                        </select>
+                    </th>
+                    <th>
+                        <input class="form-control" type="text" name="telefono" value="{{ veterinario[6] }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    </th>
+                    <th>
+                        <input class="form-control" type="text" name="correo" value="{{ veterinario[0] }}">
+                    </th>                
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button class="btn btn-warning" type="submit">Actualizar</button>
+                    </td>
+                </form>
+                <td>
+                    <a href="/eliminar_vet/{{veterinario[0]}}">
+                        <button class="btn btn-danger">Eliminar</button>
+                    </a>
+                </td>
+            </tr>
+            
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

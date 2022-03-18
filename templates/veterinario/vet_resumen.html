@@ -3,16 +3,13 @@
 {% block body %}
                     
                         <h1 class="">Resumen</h1>
-                    
-                        <form>
-                    
+
                             <!-- Datos de la mascota -->
                             <div class="card mt-4">
                                 <div class="card-header">
                                     Dueño de la mascota
                                 </div>
                                 <div class="card-body row">
-                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                     <div class="col-xl-6">
                                         <p class="fw-bolder ">Nombre</p>
                                         <input type="text" class="form-control" value="{{ dueño[0] }} {{ dueño[1] }}" disabled>
@@ -28,18 +25,19 @@
                                 </div>
                             </div>
                     
-                            <!-- Información de la consulta -->
+                            <!-- Información de la mascota -->
                             <div class="card mt-4">
                                 <div class="card-header">
                                     Información de la mascota
                                 </div>
-                                <div class="card-body row col-12">
+
+                                <form action="/actualizar_informacion_mascota" method="POST" class="card-body row col-12">
                     
                                     <!-- COL1 -->
                                     <div class="col-xl-6">
                                         <div class="col-auto">
                                             <label for="inputPassword6" class="col-form-label">Nombre</label>
-                                            <input class="form-control" value="{{ mascota[0] }}" disabled>
+                                            <input class="form-control" value="{{ mascota[0] }}" name="nombre">
                                         </div>
                     
                                         <div class="col-auto">
@@ -49,8 +47,18 @@
                     
                                         <div class="col-auto">
                                             <label for="inputPassword6" class="col-form-label">Especie</label>
-                                            <input class="form-control" value="{{ mascota[1] }}" disabled>
+                                            <select name="especie" class="form-control">
+                                                <option value="{{ mascota[1] }}"> {{ mascota[1] }} </option>
+                                                {% for especie in especies %}
+                                                <option value="{{ especie[0] }}">{{ especie[0] }} </option>
+                                                {% endfor %}
+                                            </select>
                                         </div>
+
+                                        <div class="col-auto">
+                                            <label for="inputPassword6" class="col-form-label fw-bold">Consultas totales</label>
+                                            <input class="form-control" value="{{ consultas_totales [0]}}" disabled>
+                                        </div>                                        
                     
                                     </div>
                     
@@ -59,22 +67,32 @@
 
                                         <div class="col-auto">
                                             <label for="inputPassword6" class="col-form-label">Raza</label>
-                                            <input class="form-control" value="{{mascota[2]}}" disabled>
+                                            <input class="form-control" value="{{mascota[2]}}" name="raza">
+                                        </div>
+
+                                        <!--  <form action="/actualizar_caracter" method="POST" class="row mx-auto"> -->
+                                        <div class="col-auto">
+                                            <input type="hidden" name="id_mascota" value="{{id}}">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <label for="inputPassword6" class="col-form-label">Personalidad mascota</label>
+                                            <input class="form-control" value=" {{ mascota[5] }}" name="caracter">
                                         </div>
 
                                         <div class="col-auto">
-                                            <label for="inputPassword6" class="col-form-label">Personalidad mascota</label>
-                                            <input class="form-control" value=" {{ mascota[5] }}" disabled>
+                                            <label for="inputPassword6" class="col-form-label">Fecha de nacimiento</label>
+                                            <input class="form-control" value="{{ mascota[6] }}" type="date" name="fecha_nacimiento">
                                         </div>
                     
+                                        
+
                                         <div class="col-auto">
-                                            <label for="inputPassword6" class="col-form-label">Enfermedad crónica</label>
-                                            <input class="form-control" disabled>
+                                            <label class="w-100 fw-bold col-form-label">Actualizar información de la mascota</label>
+                                            <button class="btn btn-warning fw-bold w-100" type="submit">Actualizar</button>
                                         </div>
                                                         
                                     </div>
                     
-                                </div>
+                                </form>
                     
                                 <!-- VACUNAS -->
                                 <div class="card-header">
@@ -127,10 +145,10 @@
                             </div>
                             <a href="/vet_registro_clinico/{{mascota[3]}}" class="btn btn-primary mt-3 mb-4">
                                 Agregar registro clínico
-                            </a>                            
-                    
-                        </form>
-                    
+                            </a>
+                            
+                            <a href="/historial_completo/{{ mascota[3] }}" class="btn btn-success mt-3 mb-4">Historial completo</a>
+                                        
                     </div>
 
         </div>

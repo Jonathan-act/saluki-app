@@ -1,0 +1,59 @@
+{% extends "./veterinario/vet_template.html" %}
+
+{% block body %}
+
+
+<h1 class="mb-3">Historico de consultas</h1>
+{% if usuario == True %}
+    <a href="/usr_resumen/{{ mascota[1] }}" class="btn btn-secondary">Volver al resumen</a>
+
+{% else %}
+    <a href="/vet_resumen/{{ mascota[1] }}" class="btn btn-secondary">Volver al resumen</a>
+{% endif %}
+
+
+{% for consulta in consultas %}
+    <form action="/actualizar_registros" method="post">
+        <div class="col-xl-10 mb-3">
+            <div class="card mt-4">
+                <div class="card-header">
+                    Consulta: 
+                    <label class="fw-bold"> {{ consulta[3] }} </label>                    
+                    <button class="btn btn-warning fw-bold" type="submit"> Actualziar registro </button> 
+                </div>
+                <div class="card-body row">
+            
+                    <div class="col-6">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="id_mascota" value="{{ consulta[1] }}">
+                        <input type="hidden" name="id" value="{{ consulta[0] }}">
+                        <p class="fw-bolder ">Alergia</p>
+                        <input type="text" class="form-control" name="alergia" value="{{ consulta[6] }}">
+                        <p class="fw-bolder">Vacuna</p>
+                        <input type="text" class="form-control" name="vacuna" value="{{ consulta[5] }}">
+                        <p class="fw-bolder ">Operación</p>
+                        <input type="text" class="form-control" name="operacion" value="{{ consulta[4] }}">
+            
+                    </div>
+            
+                    <div class="col-6">
+                        <p class="fw-bolder">Tratamiento</p>
+                        <input type="text" class="form-control" name="tratamiento" value="{{ consulta[8] }}">
+                        <p class="fw-bolder">Enfermedad</p>
+                        <input type="text" class="form-control" name="enfermedad" value="{{ consulta[7] }}">
+                    </div>
+            
+                </div>
+
+                <div class="form-floating p-3">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                        style="height: 100px" name="comentario">{{ consulta[2] }}</textarea>
+                    <label class="p-4" for="floatingTextarea2">Comentarios adicionales</label>
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endfor %}
+
+{% endblock %}

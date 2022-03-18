@@ -27,6 +27,7 @@
                     </li>
                 </ul>
             </div>
+
         </div>
     </nav>
 
@@ -55,7 +56,7 @@
 
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
-                    <h5>Veterinario</h5>
+                    <h4>Ingreso Veterinario</h4>
                     <p class="float-start">Correo electrónico</p>
                     <input type="email" class="form-control" name="email">
 
@@ -68,7 +69,7 @@
 
             <div class="card p-3 mx-auto mt-2 align-middle">
                 <form class="container text-center" method="POST" action="/log_usr">                    
-                    <h5>Dueño de mascota</h5>
+                    <h4>Ingreso dueño de mascota</h4>
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <p class="float-start">Correo electrónico</p>
                     <input type="email" class="form-control" name="email_usr">
@@ -76,6 +77,20 @@
                     <p class="float-start mt-1">Contraseña</p>
                     <input type="password" class="form-control" name="pass_usr" required>
 
+                    <button class="btn btn-success w-50 mt-2 mx-auto" type="submit">Ingresar</button>
+                </form>
+            </div>
+
+            <div class="card p-3 mx-auto mt-2 align-middle">
+                <form class="container text-center" method="POST" action="/log_cli">
+                    <h4>Ingreso administrador clínica</h4>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <p class="float-start">Correo electrónico</p>
+                    <input type="email" class="form-control" name="email_cli">
+            
+                    <p class="float-start mt-1">Contraseña</p>
+                    <input type="password" class="form-control" name="pass_cli" required>
+            
                     <button class="btn btn-success w-50 mt-2 mx-auto" type="submit">Ingresar</button>
                 </form>
             </div>

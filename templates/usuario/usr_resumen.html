@@ -4,144 +4,157 @@
 <div class="container col-9 mt-5">
 
     <h1 class="">Resumen</h1>
-    
-    <form>
-    
-        <!-- Datos de la mascota -->
-        <div class="card mt-4">
-            <div class="card-header">
-                Dueño de la mascota
-            </div>
-            <div class="card-body row">
-                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                <div class="col-xl-6">
-                    <p class="fw-bolder ">Nombre</p>
-                    <input type="text" class="form-control" value="{{ dueño[0] }} {{ dueño[1] }}" disabled>
-                </div>
-    
-                <div class="col-xl-6">
-                    <p class="fw-bolder">Teléfono</p>
-                    <input type="text" class="form-control" value="{{ dueño[2] }}" disabled>
-                    <!-- <p class="fw-bolder">Cantidad de mascotas</p>
-                                            <input type="text" class="form-control" disabled> -->
-                </div>
-    
-            </div>
+    <!-- Datos de la mascota -->
+    <div class="card mt-4">
+        <div class="card-header">
+            Dueño de la mascota
         </div>
-    
-        <!-- Información de la consulta -->
-        <div class="card mt-4">
-            <div class="card-header">
-                Información de la mascota
+        <div class="card-body row">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <div class="col-xl-6">
+                <p class="fw-bolder ">Nombre</p>
+                <input type="text" class="form-control" value="{{ dueño[0] }} {{ dueño[1] }}" disabled>
             </div>
-            <div class="card-body row col-12">
-    
-                <!-- COL1 -->
+
+            <div class="col-xl-6">
+                <p class="fw-bolder">Teléfono</p>
+                <input type="text" class="form-control" value="{{ dueño[2] }}" disabled>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Información de la mascota -->
+    <div class="card mt-4">
+        <div class="card-header">
+            Información de la mascota
+        </div>
+        <div class="card-body row col-12">
+            <!-- COL1 -->
+            <form action="/actualizar_informacion_mascota" method="POST" class="row">
                 <div class="col-xl-4">
                     <div class="col-auto">
                         <label for="inputPassword6" class="col-form-label">Nombre</label>
-                        <input class="form-control" value="{{ mascota[0] }}" disabled>
+                        <input class="form-control" value="{{ mascota[0] }}" name="nombre">
                     </div>
-    
+
                     <div class="col-auto">
                         <label for="inputPassword6" class="col-form-label">Edad</label>
-                        <input class="form-control" value="{{ mascota[4] }}" disabled>
+                        <input class="form-control" value="{{ mascota[4] }}" name="edad">
                     </div>
-    
+
                     <div class="col-auto">
-                        <label for="inputPassword6" class="col-form-label">Especie</label>
-                        <input class="form-control" value="{{ mascota[1] }}" disabled>
+                        <label for="inputPassword6" class="col-form-label">Fecha de nacimiento</label>
+                        <input class="form-control" value="{{ mascota[6] }}" name="fecha_nacimiento" type="date">
                     </div>
 
                 </div>
-    
+
                 <!-- COL2 -->
                 <div class="col-xl-4">
 
                     <div class="col-auto">
-                        <label for="inputPassword6" class="col-form-label">Raza</label>
-                        <input class="form-control" value="{{mascota[2]}}" disabled>
+                        <label for="inputPassword6" class="col-form-label">Especie</label>
+                        <select name="especie" class="form-control">
+                            <option value="{{ mascota[1] }}"> {{ mascota[1] }} </option>
+                            {% for especie in especies %}
+                            <option value="{{ especie[0] }}">{{ especie[0] }} </option>
+                            {% endfor %}
+                        </select>
                     </div>
-    
+
+                    <div class="col-auto">
+                        <label for="inputPassword6" class="col-form-label">Raza</label>
+                        <input class="form-control" value="{{mascota[2]}}" name="raza">
+                    </div>
+
                     <div class="col-auto">
                         <label for="inputPassword6" class="col-form-label">Personalidad mascota</label>
-                        <input class="form-control" value=" {{ mascota[5] }}" disabled>
+                        <input class="form-control w-100 mb-2" value=" {{ mascota[5] }}" name="caracter">
+                        <input type="hidden" name="id_mascota" value="{{ mascota[3] }}">
                     </div>
-    
+
                     <div class="col-auto">
-                        <label for="inputPassword6" class="col-form-label">Enfermedad crónica</label>
-                        <input class="form-control" disabled>
-                    </div>                        
-    
+                        <label for="inputPassword6" class="col-form-label fw-bolder">Actualizar información de la
+                            mascota</label>
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button class="btn btn-warning w-100 fw-bolder" type="submit">Actualizar</button>
+                    </div>
+
                 </div>
-    
+
                 <!-- COL3 -->
                 <div class="col-xl-4 text-center my-auto">
                     <div id="qrcode">
-                        <img src="https://www.codigos-qr.com/qr/php/qr_img.php?d=http://www.saluki.cl/vet_resumen/{{mascota[3]}}&s=8&e="/>                     
+                        <img
+                            src="https://www.codigos-qr.com/qr/php/qr_img.php?d=http://www.saluki.cl/vet_resumen/{{mascota[3]}}&s=8&e=" />
                     </div>
                 </div>
-    
-            </div>
-    
-            <!-- VACUNAS -->
-            <div class="card-header">
-                Vacunas aplicadas
-            </div>
-            <div class="card-body">
-                <ul class="row">
-                    {% for vacuna in vacunas %}
-                    <li>{{ vacuna }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-    
-            <!--Operaciones-->
-            <div class="card-header">
-                Operaciones realizadas
-            </div>
-            <div class="card-body">
-                <ul>
-                    {% for operacion in operaciones %}
-                    <li>{{ operacion }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-    
-            <!--Operaciones-->
-            <div class="card-header">
-                Enfermedades
-            </div>
-            <div class="card-body">
-                <ul>
-                    {% for enfermedad in enfermedades %}
-                    <li>{{ enfermedad }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-    
-            <!--Tratamientos-->
-            <div class="card-header">
-                Alergias
-            </div>
-            <div class="card-body">
-                <ul>
-                    {% for alergia in alergias %}
-                    <li>{{ alergia }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-    
+                <input type="hidden" name="usr" value="usr">
+            </form>
+
         </div>
-        <a href="/usr_registro_clinico/{{mascota[3]}}" class="btn btn-primary mt-3 mb-4">
-            Agregar registro clínico
-        </a>
-    
-    </form>
-    
+
+    <!-- INFROMACIÓN CLÍNICA -->
+
+        <!-- VACUNAS -->
+        <div class="card-header">
+            Vacunas aplicadas
+        </div>
+
+        <div class="card-body">
+            <ul class="row">
+                {% for vacuna in vacunas %}
+                <li>{{ vacuna }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!--Operaciones-->
+        <div class="card-header">
+            Operaciones realizadas
+        </div>
+        <div class="card-body">
+            <ul>
+                {% for operacion in operaciones %}
+                <li>{{ operacion }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!--Operaciones-->
+        <div class="card-header">
+            Enfermedades
+        </div>
+        <div class="card-body">
+            <ul>
+                {% for enfermedad in enfermedades %}
+                <li>{{ enfermedad }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!--Tratamientos-->
+        <div class="card-header">
+            Alergias
+        </div>
+        <div class="card-body">
+            <ul>
+                {% for alergia in alergias %}
+                <li>{{ alergia }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
     </div>
-    
-    </div>
+
+    <a href="/usr_registro_clinico/{{mascota[3]}}" class="btn btn-primary mt-3 mb-4">
+        Agregar registro clínico
+    </a>
+
+    <a href="/historial_completo/{{mascota[3]}}" class="btn btn-success mt-3 mb-4">
+        Historial Completo
+    </a>
 
 </div>
 

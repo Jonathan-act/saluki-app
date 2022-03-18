@@ -1,0 +1,153 @@
+{% extends "./clinica/cli_template.html" %}
+
+{% block body %}
+<section>
+
+    <h1 class="mb-4">Estadisticas</h1>
+    <hr>
+    <!-- ESTADISTICAS DE VACUNAS -->
+    <div class="card mb-3">
+        <h3 class="card-header">Vacunas (Histórico)</h3>
+        <div class="p-3">
+            <div>
+                <label class="fw-bold">Total vacunas aplicadas: </label>
+                <label> {{ vacunas_totales[0] }} </label>
+            </div>
+            
+            <div>
+                <label class="fw-bold">Vacuna más requerida: </label>
+                <label> {{vacuna_mas[0]}} ( {{vacuna_mas[1]}} dosis aplicadas) </label>
+            </div>
+            
+            <div>
+                <label class="fw-bold">Vacuna menos requerida: </label>
+                <label> {{vacuna_menos[0]}} ( {{vacuna_menos[1]}} dosis aplicadas)</label>
+            </div>
+        </div>
+        <hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Vacuna</th>
+                    <th scope="col">Cantidad de dosis aplicadas</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vacuna in vacunas %}
+                <tr>
+                    <th> {{ vacuna[0] }} </th>
+                    <td> {{ vacuna[1] }} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- OPERACIONES -->
+    <div class="card mb-3">
+        <h3 class="card-header">Operaciones (Histórico)</h3>
+        <div class="p-3">
+            <div>
+                <label class="fw-bold">Total operaciones realizadas: </label>
+                <label> {{ operaciones_totales[0] }} </label>
+            </div>
+    
+            <div>
+                <label class="fw-bold">Operación más requerida: </label>
+                <label> {{operacion_mas[0]}} ( {{operacion_mas[1]}} intervenciones) </label>
+            </div>
+    
+            <div>
+                <label class="fw-bold">Operación menos requerida: </label>
+                <label> {{operacion_menos[0]}} ( {{operacion_menos[1]}} intervenciones)</label>
+            </div>
+        </div>
+        <hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Operación</th>
+                    <th scope="col">Cantidad intervenciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for operacion in operaciones %}
+                <tr>
+                    <th> {{ operacion[0] }} </th>
+                    <td> {{ operacion[1] }} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Enfermedades -->
+    <div class="card mb-3">
+        <h3 class="card-header">Enfermedades (Histórico)</h3>
+        <div class="p-3">            
+    
+            <div>
+                <label class="fw-bold">Enfermedad más común: </label>
+                <label> {{enfermedad_mas[0]}} ( {{enfermedad_mas[1]}} atendidas) </label>
+            </div>
+    
+            <div>
+                <label class="fw-bold">Enfermedad menos común: </label>
+                <label> {{enfermedad_menos[0]}} ( {{enfermedad_menos[1]}} atendidas)</label>
+            </div>
+        </div>
+        <hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Enfermedad</th>
+                    <th scope="col">Cantidad de atenciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for enfermedad in enfermedades %}
+                <tr>
+                    <th> {{ enfermedad[0] }} </th>
+                    <td> {{ enfermedad[1] }} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Tratamientos -->
+    <div class="card mb-3">
+        <h3 class="card-header">Tratamientos (Histórico)</h3>
+        <div class="p-3">
+    
+            <div>
+                <label class="fw-bold">Tratamiento más común: </label>
+                <label> {{tratamiento_mas[0]}} ( {{tratamiento_mas[1]}} aplicados) </label>
+            </div>
+    
+            <div>
+                <label class="fw-bold">Tratamiento menos común: </label>
+                <label> {{tratamiento_menos[0]}} ( {{tratamiento_menos[1]}} aplicados)</label>
+            </div>
+        </div>
+        <hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Tratamiento</th>
+                    <th scope="col">Cantidad de atenciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tratamiento in tratamientos %}
+                <tr>
+                    <th> {{ tratamiento[0] }} </th>
+                    <td> {{ tratamiento[1] }} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</section>
+{% endblock %}

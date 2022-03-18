@@ -1,18 +1,22 @@
 {% extends "./veterinario/vet_template.html" %}
 
 {% block body %}
-            <div class="card p-3">
+            
+            <h1>Horas agendadas para Hoy</h1>
+
+            <div class="card p-3 mt-4">
 
                 <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">Dueño mascota</th>
                             <th scope="col">Teléfono</th>
-                            <th scope="col">Mascota</th>
-                            <th scope="col">Especie</th>
+                            <th scope="col">Mascota</th>                            
                             <th scope="col">Caracter</th>
                             <th scope="col">Hora</th>
                             <th scope="col">Fecha</th>
+                            <th class="col">Modificar</th>
+                            <th class="col">Eliminar</th>
                         </tr>
                     </thead>
 
@@ -21,11 +25,16 @@
                         <tr>
                             <td> {{ hora[4] }} </td>
                             <td> {{ hora[5] }} </td>
-                            <td> {{ hora[6] }} </td>
-                            <td> {{ hora[8] }} </td>
+                            <td> {{ hora[6] }} </td>                            
                             <td> {{ hora[9] }} </td>
-                            <td> {{ hora[3] }} </td>
-                            <td> {{ hora[2] }} </td>                    
+                            <form action="modificar_hrs" method="POST">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <input type="hidden" name="id" value="{{ hora[0] }}">
+                                <td> <input name="hora" type="time" value="{{ hora[3] }}"> </td>
+                                <td> <input name="fecha" type="date" value="{{ hora[2] }}"> </td>
+                                <td> <button type="submit" class="btn btn-warning"> Modificar hora </button> </td>
+                            </form>                  
+                            <td> <a href="/eliminar_hrs/{{ hora[0] }}"> <button class="btn btn-danger"> Eliminar hora </button> </a> </td>
                         </tr>
                         {% endfor %}                        
                     </tbody>

@@ -1,0 +1,34 @@
+{% extends "./clinica/cli_template.html" %}
+
+{% block body %}
+
+<section>
+    <div class="d-flex">
+        <h1 class="mb-1 w-75">Clientes</h1>
+    </div>
+    <hr>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">Cantidad de consultas</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in clientes %}
+            <tr>
+                <th>{{ cliente[0] }}</th>
+                <th>{{ cliente[1] }}</th>
+                <th>{{ cliente[2] }}</th>
+                <th>{{ cliente[3] }}</th>
+                <th>{{ cliente[4] }}</th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

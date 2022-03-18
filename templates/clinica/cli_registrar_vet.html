@@ -1,0 +1,60 @@
+{% extends "./clinica/cli_template.html" %}
+
+{% block body %}
+
+<h1 class="">Registrar nuevo veterinario</h1>
+<hr>
+<form class="p-auto mb-4" action="/registrar_vet" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+    <div class="mb-3">
+        <label class="form-label">Correo electrónico veterinario</label>
+        <input type="email" class="form-control w-75" name="correo" value="{{ correo }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Contraseña</label>
+        <input type="password" class="form-control w-75" name="contrasena" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Nombre veterinario</label>
+        <input type="text" class="form-control w-75" name="nombre" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Apellido veterinario</label>
+        <input type="text" class="form-control w-75" name="apellido" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Especialidad</label>
+        <select name="especialidad" class="form-control w-75" required>
+            {% for especialidad in especialidades %}
+            <option value="{{ especialidad[0] }}">{{ especialidad[1] }} </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Teléfono</label>
+        <input type="tel" class="form-control w-75" name="telefono" value="{{ fecha }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Ciudad</label>
+        <select name="ciudad" class="form-control w-75" required>
+            {% for ciudad in ciudades %}
+            <option value="{{ ciudad[0] }}">{{ ciudad[2] }} </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="">
+        <button type="submit" class="btn btn-primary">Registrar</button>
+    </div>
+
+</form>
+</div>
+
+{% endblock %}

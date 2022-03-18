@@ -1,0 +1,36 @@
+{% extends "./clinica/cli_template.html" %}
+
+{% block body %}
+
+<section>
+    <div class="d-flex">
+        <h1 class="mb-1 w-75">Mascotas atendidas</h1>
+    </div>
+    <hr>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Especie</th>
+                <th scope="col">Fecha nacimiento</th>
+                <th scope="col">Caracter</th>
+                <th scope="col">Correo dueño</th>
+                <th scope="col">Cantidad de consultas</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mascota in mascotas %}
+            <tr>
+                <th>{{ mascota[1] }}</th>
+                <th>{{ mascota[2] }}</th>
+                <th>{{ mascota[3] }}</th>
+                <th>{{ mascota[4] }}</th>
+                <th>{{ mascota[5] }}</th>
+                <th>{{ mascota[6] }}</th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
