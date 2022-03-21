@@ -209,6 +209,7 @@ def cli_inicio():
 
     return render_template('./clinica/cli_estadisticas.html', vacunas_totales=vacunas_totales[0], vacuna_mas = vacuna_mas[0], vacuna_menos = vacuna_menos[0], vacunas = vacunas, operaciones_totales = operaciones_totales[0], operacion_mas = operacion_mas[0], operacion_menos = operacion_menos[0], operaciones = operaciones, enfermedad_mas = enfermedad_mas[0], enfermedad_menos = enfermedad_menos[0], enfermedades = enfermedades, tratamiento_mas = tratamiento_mas[0], tratamiento_menos = tratamiento_menos[0], tratamientos = tratamientos)
 
+'''
 @app.route('/cli_veterinarios')
 def cli_veterinarios():
     clinica = 'clinica.ubb@saluki.cl'
@@ -216,7 +217,7 @@ def cli_veterinarios():
         "select * from veterinario where correo_clinica = '{0}'".format(clinica)
     )
     veterinarios = cursor.fetchall()
-    vet_estadisticas = [{}]
+    vet_estadisticas = []
     for veterinario in veterinarios:
         #consultas últimos 7 días
         cursor.execute(
@@ -236,20 +237,40 @@ def cli_veterinarios():
         )
         a_total = cursor.fetchall()
 
-        estadisticas = [{
+        estadisticas = {
             "correo_veterinario" : veterinario[0],
             "a_semanales": a_semanal[0][0],
             "a_mensuales": a_mensual[0][0],
             "a_totales": a_total[0][0]
-        }]
+        }
         vet_estadisticas.append(estadisticas)
     #especialidades
     cursor.execute(
         "select * from especialidad"
     )
     especialidades = cursor.fetchall()
-    print(vet_estadisticas)
-    return render_template('./clinica/cli_veterinarios.html', veterinarios = veterinarios, estadisticas = vet_estadisticas, especialidades = especialidades)
+    print(vet_estadisticas[1]['correo_veterinario'])
+    print(veterinarios[1])
+        
+    return render_template('./clinica/cli_veterinarios.html', veterinarios = veterinarios, estadisticas = vet_estadisticas, especialidades = especialidades, x = 1)
+'''
+
+
+@app.route('/cli_veterinarios')
+def cli_veterinarios():
+    
+    cursor.execute(
+        "select distinct v.nombre_veterinario, v.apellido_veterinario, e.nombre_especialidad, v.telefono_veterinario, v.correo_veterinario, count(a.id_agenda)-1 as mensual, v.contrasena_veterinario from veterinario v, agenda a, especialidad e where v.correo_veterinario=a.correo_veterinario and a.fecha_agenda between current_date-30 and current_date and v.id_especialidad=e.id_especialidad and v.correo_clinica = 'clinica.ubb@saluki.cl' group by v.nombre_veterinario, v.apellido_veterinario, e.nombre_especialidad, v.telefono_veterinario, v.correo_veterinario"
+    )
+    veterinarios = cursor.fetchall()
+
+    #especialidades
+    cursor.execute(
+        "select * from especialidad"
+    )
+    especialidades = cursor.fetchall()
+
+    return render_template('./clinica/cli_veterinarios.html', veterinarios=veterinarios, especialidades=especialidades)
 
 @app.route('/cli_registrar_vet')
 def cli_registrar_vet():
@@ -869,6 +890,13 @@ def registrar_vet():
         "insert into veterinario (correo_veterinario, id_especialidad, id_ciudad, nombre_veterinario, apellido_veterinario, contrasena_veterinario, telefono_veterinario, correo_clinica) values ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}')".format(correo, especialidad, ciudad, nombre, apellido, contrasena, telefono, correo_clinica)
     )
     con.commit()
+    hora = '00:00'
+    fecha_agenda = '03-03-2022'
+    cursor.execute(
+        'insert into agenda (correo_veterinario, fecha_agenda, hora_agenda, nombre_agenda, telefono_agenda, nombre_mascota, caracter_agenda) values (%s, %s, %s, %s, %s, %s, %s)', (correo, fecha_agenda, hora, nombre, telefono, nombre, nombre)
+    )
+    con.commit()
+
     return redirect('/cli_veterinarios')
 
 @app.route('/eliminar_vet/<string:id>')
@@ -882,10 +910,16 @@ def eliminar_route(id):
 @app.route('/actualizar_vet', methods=['POST'])
 def actualizar_vet():
     if request.method == 'POST':
+        correo = request.form['correo']
         especialidad = request.form['especialidad']
         telefono = request.form['telefono']
-        correo = request.form['correo']
-    return 'hola que tal'
+        contrasena = request.form['pass']
+    cursor.execute(
+        "update veterinario set telefono_veterinario = '{1}',  contrasena_veterinario='{2}', id_especialidad='{3}' where correo_veterinario = '{0}'".format(correo, telefono, contrasena, especialidad)
+    )
+    con.commit()
+    print(correo, especialidad, telefono, contrasena)
+    return redirect('/cli_veterinarios')
 
 #tecnologias del proyecto
 @app.route('/info')

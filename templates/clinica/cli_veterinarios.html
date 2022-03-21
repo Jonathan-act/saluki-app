@@ -18,44 +18,49 @@
                 <th scope="col">Especialidad</th>
                 <th scope="col">Teléfono</th>
                 <th scope="col">Correo</th>
-                <th scope="col">Consultas mensuales</th>
-                <th scope="col">Consultas semanales</th>
-                <th scope="col">Consultas totales</th>
+                <th scope="col">Contraseña</th>
+                <th scope="col">Consultas últimos 30 días</th>
                 <th scope="col">Actualizar</th>
                 <th scope="col">Eliminar</th>
             </tr>
         </thead>
         <tbody>
+            
             {% for veterinario in veterinarios %}
             <tr>
                 <form action="/actualizar_vet" method="POST">
                     <th>
-                        <input class="form-control" type="text" name="nombre" value="{{ veterinario[3] }} {{ veterinario[4] }}" disabled>
+                        <input class="form-control" type="text" name="nombre" value="{{ veterinario[0] }} {{ veterinario[1] }}" disabled>
                     </th>
                     <th>
-                        <select class="form-select">
-                            <option value="{{veterinario[1]}}" name="especialidad">{{ veterinario[1] }}</option>
+                        <select class="form-select" name="especialidad">
+                            <option value="{{veterinario[2]}}" >{{ veterinario[2] }}</option>
                             {% for especialidad in especialidades %}
                             <option value="{{especialidad[0]}}" >{{ especialidad[1] }}</option>
                             {% endfor %}
                         </select>
                     </th>
                     <th>
-                        <input class="form-control" type="text" name="telefono" value="{{ veterinario[6] }}">
+                        <input class="form-control" type="number" name="telefono" value="{{ veterinario[3] }}">
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     </th>
                     <th>
-                        <input class="form-control" type="text" name="correo" value="{{ veterinario[0] }}">
-                    </th>                
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                        <input class="form-control" type="text" value="{{ veterinario[4] }}" disabled>
+                        <input class="form-control" type="hidden" name="correo" value="{{ veterinario[4] }}">
+                    </th>
+                    
+                    <th>
+                        <input class="form-control" type="text" name="pass" value="{{ veterinario[6] }}">
+                    </th>
+
+                    <td>{{ veterinario[5] }}</td>                  
+                    
                     <td>
                         <button class="btn btn-warning" type="submit">Actualizar</button>
                     </td>
                 </form>
                 <td>
-                    <a href="/eliminar_vet/{{veterinario[0]}}">
+                    <a href="/eliminar_vet/{{veterinario[4]}}">
                         <button class="btn btn-danger">Eliminar</button>
                     </a>
                 </td>
